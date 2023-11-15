@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:petpal/home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -8,6 +11,41 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _authenticate() async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      if (kDebugMode) {
+        print('error code is ${e.code}');
+      }
+      if (e.code == 'user-not-found') {
+        errorMessage = 'No user found for that email.';
+      } else if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
+        errorMessage = 'Invalid Login credentials';
+      } else if (e.code == 'wrong-password') {
+        errorMessage = 'Wrong password provided for that user.';
+      } else if (e.code == 'too-many-request') {
+        errorMessage =
+            'Access to this account has been temporarily disabled due to many failed login attempts.';
+      } else {
+        errorMessage = 'error in login authentication';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(errorMessage),
+          duration: const Duration(seconds: 4),
+          behavior: SnackBarBehavior.fixed));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: TextFormField(
+                      controller: _emailController,
                       decoration: const InputDecoration(
                         hintText: 'username',
                         icon: Icon(Icons.person),
@@ -29,6 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: TextFormField(
+                      controller: _passwordController,
                       obscureText: true,
                       decoration: const InputDecoration(
                         hintText: 'password',
@@ -36,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     )),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: _authenticate,
                   child: const Text('Login'),
                 ),
               ],

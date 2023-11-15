@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:petpal/login.dart';
 import 'package:petpal/signup.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:petpal/firebase_options.dart';
 
 GoogleSignIn googleSignIn = GoogleSignIn(
   scopes: [
@@ -9,7 +10,11 @@ GoogleSignIn googleSignIn = GoogleSignIn(
   ],
 );
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
