@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:petpal/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:petpal/firebase_options.dart';
-
-GoogleSignIn googleSignIn = GoogleSignIn(
-  scopes: [
-    'email',
-  ],
-);
+import 'package:petpal/navigation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SignupPage(),
+      onGenerateRoute: Navigation.generateRoute,
     );
   }
 }

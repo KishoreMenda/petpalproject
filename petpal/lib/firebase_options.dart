@@ -67,6 +67,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '671482888438',
     projectId: 'cins467-c8996',
     storageBucket: 'cins467-c8996.appspot.com',
+    androidClientId:
+        '671482888438-0jt2il4ee4r5v46bth6nebk1ajinmng9.apps.googleusercontent.com',
+    iosClientId:
+        '671482888438-chkv7mctq7vu9vhocuc61r6o06101g1e.apps.googleusercontent.com',
     iosBundleId: 'com.example.petpal',
   );
 
@@ -76,6 +80,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '671482888438',
     projectId: 'cins467-c8996',
     storageBucket: 'cins467-c8996.appspot.com',
+    androidClientId:
+        '671482888438-0jt2il4ee4r5v46bth6nebk1ajinmng9.apps.googleusercontent.com',
+    iosClientId:
+        '671482888438-872lkbjmkhi0demrfn4uk5bmfjej33vb.apps.googleusercontent.com',
     iosBundleId: 'com.example.petpal.RunnerTests',
   );
 }

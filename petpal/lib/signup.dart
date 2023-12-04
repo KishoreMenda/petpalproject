@@ -68,7 +68,7 @@ class _SignupPageState extends State<SignupPage> {
           }
         }
       } catch (e) {
-        print(e);
+        print('the error is: $e');
       }
     }
   }
@@ -142,16 +142,16 @@ class _SignupPageState extends State<SignupPage> {
                             ElevatedButton(
                                 onPressed: _submitForm,
                                 child: const Text('Sign Up')),
-                            TextButton(
+                            ElevatedButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginPage()),
-                                  );
+                                  Navigator.pushNamed(context, '/login');
                                 },
-                                child: const Text(
-                                    'Already have an account? Sign In'))
+                                child: const Text('Login with email/password')),
+                            ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/google_login');
+                                },
+                                child: const Text('Signin with Google')),
                           ],
                         ))))));
   }
